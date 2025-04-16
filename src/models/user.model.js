@@ -51,7 +51,7 @@ const userShema = new Schema(
 
 userShema.pre("save",async function (next) {
     if(!this.isModified("password")) return next();
-    this.password = bcrypt.hash(this.password,10)
+    this.password = await bcrypt.hash(this.password,10)
     next()
 })
 
@@ -85,4 +85,4 @@ userShema.methods.generateRefreshToken = function(){
     )
 }
 
-export const user = mongoose.Model("User",userShema )
+export const user = mongoose.model("User",userShema )
